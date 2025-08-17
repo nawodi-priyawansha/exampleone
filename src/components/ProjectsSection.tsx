@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import {  Github, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 const ProjectsSection = () => {
