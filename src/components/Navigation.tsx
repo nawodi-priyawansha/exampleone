@@ -83,13 +83,14 @@ const Navigation = ({ isDark, toggleTheme }: NavigationProps) => {
             {navItems.map((item) => (
               <Button
                 key={item.id}
-                variant="ghost"
+                variant="nav"
                 onClick={() => scrollToSection(item.id)}
-                className={`relative px-4 py-2 transition-all duration-300 hover:bg-accent/10 rounded-lg ${
+                className={`relative px-4 py-2 transition-all duration-300 hover:bg-accent/10 rounded-lg focus:outline-none focus:ring-0 border-0 ${
                   activeSection === item.id 
-                    ? 'text-accent bg-accent/10 shadow-md' 
+                    ? 'text-accent bg-accent/20 shadow-md' 
                     : 'text-muted-foreground hover:text-primary'
                 }`}
+                style={{ backgroundColor: 'transparent' }}
               >
                 {item.label}
                 {activeSection === item.id && (
