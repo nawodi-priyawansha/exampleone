@@ -19,6 +19,14 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
+        nav: [
+          "bg-transparent border-0",
+          "outline-none focus:outline-none focus-visible:outline-none",
+          "ring-0 focus:ring-0 focus-visible:ring-0",
+          "ring-offset-0 focus:ring-offset-0 focus-visible:ring-offset-0",
+          "appearance-none",
+          "hover:text-primary",
+        ].join(" "),
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

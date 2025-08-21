@@ -5,10 +5,11 @@
 
 :root {
   --font-size: 14px;
+  --width: 100%;
   
   /* Custom Portfolio Colors - Light Theme */
   --portfolio-bg-primary: #FAFBFC;
-  --portfolio-bg-secondary: #F1F5F9;
+  --portfolio-bg-secondary: #f1f5f95b;
   --portfolio-accent-primary: #3B82F6;
   --portfolio-accent-secondary: #06B6D4;
   
@@ -347,23 +348,27 @@ html {
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+  animation: fadeInUp 0.8s ease forwards;
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.6s ease-out;
+  animation: slideInLeft 0.8s ease forwards;
 }
 
 .animate-slide-in-right {
-  animation: slideInRight 0.6s ease-out;
+  animation: slideInRight 0.8s ease forwards;
 }
 
 .animate-pulse-custom {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation: pulse 2s infinite ease-in-out;
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-rotate {
+  animation: rotate 12s linear infinite;
 }
 
 .animate-rotate-slow {
@@ -371,17 +376,17 @@ html {
 }
 
 .animate-wave {
-  animation: wave 2s ease-in-out infinite;
+  animation: wave 2s infinite;
   transform-origin: 70% 70%;
 }
 
 .animate-morph {
-  animation: morphShape 8s ease-in-out infinite;
+  animation: morphShape 10s ease-in-out infinite;
 }
 
 .animate-gradient {
-  background-size: 400% 400%;
-  animation: gradientShift 4s ease infinite;
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
 }
 
 .animate-sparkle {
@@ -389,6 +394,7 @@ html {
 }
 
 .animate-shimmer {
+  background-size: 200% 100%;
   animation: shimmer 2s linear infinite;
 }
 
@@ -542,9 +548,9 @@ html {
 /* Neon text effect */
 .neon-text {
   text-shadow: 
-    0 0 5px var(--color-accent),
-    0 0 10px var(--color-accent),
-    0 0 20px var(--color-accent);
+    0 0 3px var(--color-accent),
+    0 0 6px var(--color-accent),
+    0 0 9px var(--color-accent);
 }
 
 /* Modern card styles */
