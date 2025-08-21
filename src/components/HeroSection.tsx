@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Button } from './ui/button';
 import { ChevronDown, Download, Github, Linkedin, Mail, Code, Sparkles, Star, Zap, Heart, Coffee } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -38,23 +38,43 @@ const HeroSection = () => {
     }
   };
 
-  // Enhanced animated background particles with better colors
-  const particles = Array.from({ length: 25 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 4 + 2,
-    left: Math.random() * 100,
-    top: Math.random() * 100,
-    delay: Math.random() * 5,
-    duration: Math.random() * 3 + 2,
-  }));
+  /** 🔹 New Styled Particles */
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 40 }, (_, i) => ({
+        id: i,
+        size: Math.random() * 14 + 6, // Bigger: 6–20px
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: Math.random() * 6 + 5,
+        delay: Math.random() * 3,
+        color: [
+          'bg-[var(--portfolio-accent-primary)]',
+          'bg-[var(--portfolio-accent-secondary)]',
+          'bg-[var(--chart-3)]',
+          'bg-[var(--chart-4)]',
+          'bg-[var(--chart-5)]',
+        ][Math.floor(Math.random() * 5)],
+      })),
+    []
+  );
 
-  const floatingShapes = Array.from({ length: 8 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 80 + 40,
-    left: Math.random() * 100,
-    top: Math.random() * 100,
-    delay: i * 0.3,
-  }));
+  /** 🔹 New Floating Shapes */
+  const floatingShapes = useMemo(
+    () =>
+      Array.from({ length: 8 }, (_, i) => ({
+        id: i,
+        size: Math.random() * 160 + 100, // Bigger: 100–260px
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        delay: i * 0.8,
+        gradient:
+          i % 2 === 0
+            ? 'bg-gradient-to-br from-[var(--portfolio-accent-primary)]/30 to-[var(--portfolio-accent-secondary)]/30'
+            : 'bg-gradient-to-br from-[var(--chart-3)]/30 to-[var(--chart-4)]/30',
+      })),
+    []
+  );
 
   const floatingIcons = [
     { icon: <Code className="h-6 w-6" />, delay: 0, position: { top: '15%', left: '8%' }, color: 'text-blue-500' },
@@ -66,50 +86,60 @@ const HeroSection = () => {
   ];
 
   return (
-    <section id="home" className="min-h-screen relative overflow-hidden wave-bg">
-      {/* Enhanced Background Mesh with new colors */}
+    <section id="home" className="min-h-screen relative overflow-hidden wave-bg lg:max-w-7xl mx-auto">
+      {/* Background Mesh */}
       <div className="absolute inset-0 mesh-bg opacity-40"></div>
 
-      {/* Enhanced Floating Shapes */}
+      {/* 🔹 New Floating Shapes */}
       {floatingShapes.map((shape) => (
         <motion.div
           key={shape.id}
-          className="absolute animate-morph opacity-8"
+          className={`absolute rounded-full blur-2xl ${shape.gradient}`}
           style={{
             width: shape.size,
             height: shape.size,
             left: `${shape.left}%`,
             top: `${shape.top}%`,
-            background: `linear-gradient(135deg, var(--color-accent), var(--color-chart-2))`,
           }}
           initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 0.08 }}
-          transition={{ delay: shape.delay, duration: 1 }}
+          animate={{
+            scale: [0.8, 1.2, 1],
+            opacity: [0.05, 0.15, 0.1],
+          }}
+          transition={{
+            duration: 10,
+            delay: shape.delay,
+            repeat: Infinity,
+            repeatType: 'mirror',
+            ease: 'easeInOut',
+          }}
         />
       ))}
 
-      {/* Enhanced Animated Particles */}
-      {particles.map((particle) => (
+      {/* 🔹 New Animated Particles */}
+      {particles.map((p) => (
         <motion.div
-          key={particle.id}
-          className="absolute rounded-full bg-gradient-to-r from-accent to-chart-2 opacity-30"
+          key={p.id}
+          className={`absolute rounded-full ${p.color} shadow-lg`}
           style={{
-            width: particle.size,
-            height: particle.size,
-            left: `${particle.left}%`,
-            top: `${particle.top}%`,
+            width: p.size,
+            height: p.size,
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            filter: 'drop-shadow(0 0 8px rgba(0,0,0,0.3))',
           }}
           animate={{
-            y: [-20, 20, -20],
-            x: [-10, 10, -10],
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
+            y: [-40, 40, -40],
+            x: [-25, 25, -25],
+            scale: [1, 1.6, 1],
+            opacity: [0.4, 0.9, 0.4],
           }}
           transition={{
-            duration: particle.duration,
+            duration: p.duration,
+            delay: p.delay,
             repeat: Infinity,
-            delay: particle.delay,
-            ease: "easeInOut",
+            repeatType: 'mirror',
+            ease: 'easeInOut',
           }}
         />
       ))}
@@ -118,7 +148,7 @@ const HeroSection = () => {
       {floatingIcons.map((item, index) => (
         <motion.div
           key={index}
-          className={`absolute ${item.color} opacity-40`}
+          className={`absolute ${item.color} opacity-40 z-10`}
           style={item.position}
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 0.4, scale: 1 }}
@@ -382,7 +412,7 @@ const HeroSection = () => {
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-                  className="relative z-10 aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 glass-strong modern-card"
+                  className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 glass-strong modern-card"
                 >
                   <div className="w-full h-full bg-gradient-to-br from-card via-accent/5 to-chart-2/5 flex items-center justify-center relative">
                     {/* Enhanced Background Pattern */}
@@ -406,14 +436,18 @@ const HeroSection = () => {
                   </div>
                 </motion.div>
 
-                {/* Enhanced Floating Tech Cards */}
-                {[
-                  { emoji: "⚛️", label: "React", position: "top-left", gradient: "from-blue-400 to-blue-600" },
-                  { emoji: "📱", label: "Mobile", position: "top-right", gradient: "from-green-400 to-green-600" },
-                  { emoji: "☁️", label: "Cloud", position: "bottom-left", gradient: "from-purple-400 to-purple-600" },
-                  { emoji: "🚀", label: "Deploy", position: "bottom-right", gradient: "from-cyan-400 to-cyan-600" }
-                ].map((card, index) => {
-                  const positions = {
+                {/* Enhanced Floating Tech Cards with slower animation */}
+                {(
+                  [
+                    { emoji: "⚛️", label: "React", position: "top-left", gradient: "from-blue-400 to-blue-600" },
+                    { emoji: "📱", label: "Mobile", position: "top-right", gradient: "from-green-400 to-green-600" },
+                    { emoji: "☁️", label: "Cloud", position: "bottom-left", gradient: "from-purple-400 to-purple-600" },
+                    { emoji: "🚀", label: "Deploy", position: "bottom-right", gradient: "from-cyan-400 to-cyan-600" }
+                  ]as const
+                ).map((card, index) => {
+                  type Position = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
+                  const positions: Record<Position, string> = {
                     "top-left": "-top-6 -left-6",
                     "top-right": "-top-6 -right-6", 
                     "bottom-left": "-bottom-6 -left-6",
@@ -480,6 +514,7 @@ const HeroSection = () => {
                     repeat: Infinity,
                     delay: i * 0.2,
                     repeatType: "loop",
+                    ease: "easeInOut"
                   }}
                 />
               ))}
@@ -496,8 +531,8 @@ const HeroSection = () => {
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          animate={{ y: [0, 8, 12, 8, 0] }}
+          transition={{ duration: 4, repeat: Infinity, repeatType: "loop" }} // Slower scroll indicator
         >
           <Button
             variant="ghost"
@@ -509,8 +544,8 @@ const HeroSection = () => {
         </motion.div>
         <motion.div 
           className="text-xs text-muted-foreground text-center mt-2 font-medium"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          animate={{ opacity: [0.4, 0.7, 1, 0.7, 0.4] }}
+          transition={{ duration: 4, repeat: Infinity, repeatType: "loop" }} // Slower text fade
         >
           Scroll to explore ✨
         </motion.div>

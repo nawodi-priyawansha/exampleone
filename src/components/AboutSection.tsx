@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { motion } from 'framer-motion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Code, Heart, Coffee, Zap, Globe, Smartphone, Database, Cloud, Award, GraduationCap, Briefcase } from 'lucide-react';
+import { Code, Heart, Coffee, Zap, Globe, Smartphone, Database, Cloud, Award, GraduationCap } from 'lucide-react';
 
 const AboutSection = () => {
   const highlights = [
